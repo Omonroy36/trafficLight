@@ -1,12 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class TrafficLight extends React.Component{
+  constructor(){
+      super();
+      this.state = {
+        red:false,
+        yellow: false,
+        green: false,
+      }
+      
+  }
+  handleClick(e){
+    let element = e.target.id;
+    console.log(element);
+   if(element === "red"){
+    this.setState({
+        red: true,
+        yellow: false,
+        green: false,
+    })
+   } else if (element === "yellow"){
+    this.setState({
+        red: false,
+        yellow: true,
+        green: false,
+    })
+   } else if(element === "green"){
+    this.setState({
+        red: false,
+        yellow: false,
+        green: true,
+    })
+   }
+  }
+  
+ 
+   render(){
+     return (
+         <div className="container text-center">
+          <div className={this.state.red ? "shadowes" : " "} id="red" onClick={e => this.handleClick(e)}></div>
+          <div className={this.state.yellow ? "shadowes" : " "} id="yellow" onClick={e => this.handleClick(e)}></div>
+          <div className={this.state.green ? "shadowes" : " "} id="green" onClick={e => this.handleClick(e)}></div>
+         </div> 
+     );
+ }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+}
+
+
+ReactDOM.render(<TrafficLight />, document.querySelector('#app'));
